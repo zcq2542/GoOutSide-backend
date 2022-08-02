@@ -43,7 +43,6 @@ export default class ReviewsDAO {
       console.error(`Unable to update review: ${e}`)
       return { error: e };
     }
-
   }
 
   static async deleteReview(reviewId, userId) {
@@ -56,8 +55,5 @@ export default class ReviewsDAO {
       console.error(`Unable to delete review: ${e}`)
       return { error: e };
     }
-
-
   }
-
 }
