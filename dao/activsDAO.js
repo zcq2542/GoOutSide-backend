@@ -10,7 +10,7 @@ export default class ActivsDAO {
     }
     try {
       //Don't know what to write here 
-      activs = await conn.db(process.env.ACTIVREVIEWS_NS).collection('activs');
+      activs = await conn.db(process.env.ACTIVREVIEWS_NS).collection('Activities');
     }
     catch (e) {
       console.error(`Unable to connect in ActivsDAO : ${e}`);
@@ -18,10 +18,10 @@ export default class ActivsDAO {
   }
 
   static async getActivs({
-    filters = null,
-    page = 0,
-    activsPerPage = 10,
-  } = {}) { //empty object is default parameter in case arg is undefined
+      filters = null,
+      page = 0,
+      activsPerPage = 10,
+    } = {}) { // empty object is default parameter in case arg is undefined.
     let query;
     if (filters) {
       if ("name" in filters) {
@@ -65,11 +65,11 @@ export default class ActivsDAO {
           }
         },
         {
-          $lookup: {
+          $lookup: { // from reviews collection find the data that activ_id === _id(activs collection) as output reviews field.
             from: 'reviews',
             localField: '_id',
             foreignField: 'activ_id',
-            as: 'reviews',
+            as: 'reviews', // output array field.
           }
         }
       ]).next();
