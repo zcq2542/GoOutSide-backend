@@ -7,7 +7,7 @@ export default class FavoritesDAO {
     }
     try {
       favoritesCollection = await conn.db(process.env.ACTIVREVIEWS_NS)
-        .collection('favorites');
+        .collection('Favorites');
     }
     catch (e) {
       console.error(`Unable to connect in FavoritesDAO: ${e}`);

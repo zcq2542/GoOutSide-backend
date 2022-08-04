@@ -9,7 +9,6 @@ export default class ActivsDAO {
       return;
     }
     try {
-      //Don't know what to write here 
       activs = await conn.db(process.env.ACTIVREVIEWS_NS).collection('Activities');
     }
     catch (e) {
@@ -20,14 +19,14 @@ export default class ActivsDAO {
   static async getActivs({
       filters = null,
       page = 0,
-      activsPerPage = 10,
+      activsPerPage = 20,
     } = {}) { // empty object is default parameter in case arg is undefined.
     let query;
     if (filters) {
       if ("name" in filters) {
         query = { $text: { $search: filters['name'] } };
       } else if ("tag" in filters) {
-        query = { "tag": { $eq: filters['tag'] } };
+        query = { "tags": { $eq: filters['tags'] } };
       }
     }
 
@@ -48,7 +47,7 @@ export default class ActivsDAO {
   static async getTags() {
     let tags = [];
     try {
-      tags = await activs.distinct("taged");
+      tags = await activs.distinct("tags");
       return tags;
     } catch (e) {
       console.error(`Unable to get tags, ${e}`);
@@ -93,6 +92,56 @@ export default class ActivsDAO {
     } catch (e) {
       console.error(`Something went wrong in getByIdList: ${e}`);
       throw e;
+    }
+  }
+
+  static async addActiv(name, images, tags, user, address, description) {
+    try {
+      const activDoc = {
+        name: name,
+        images: images,
+        tags: tags,
+        user_id: user._id,
+        user_name: user._name,
+        address: address,
+        description: description
+      }
+      return await activs.insertOne(activDoc);
+    }
+    catch (e) {
+      console.error(`Unable to post activity: ${e}`)
+      return { error: e };
+    }
+  }
+
+  static async updateActiv(activId, userId, name, images, tags, address, description) {
+    try {
+      const activUpdate = await activs.updateOne(
+        { _id: ObjectId(activId), user_id: userId },
+        { $set: { 
+          name: name,
+          images: images,
+          tags: tags,
+          address: address,
+          description: description 
+        } });
+      return activUpdate;
+    }
+    catch (e) {
+      console.error(`Unable to update activity: ${e}`)
+      return { error: e };
+    }
+  }
+
+  static async deleteActiv(activId, userId) {
+    try {
+      const activDelete = await activs.deleteOne(
+        { _id: ObjectId(activId), user_id: userId });
+      return activDelete;
+    }
+    catch (e) {
+      console.error(`Unable to delete activity: ${e}`)
+      return { error: e };
     }
   }
 }

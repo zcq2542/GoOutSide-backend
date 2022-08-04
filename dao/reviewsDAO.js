@@ -9,9 +9,9 @@ export default class ReviewsDAO {
       return;
     }
     try {
-      reviews = await conn.db(process.env.ACTIVREVIEWS_NS).collection('reviews');
+      reviews = await conn.db(process.env.ACTIVREVIEWS_NS).collection('Reviews');
     } catch (e) {
-      console.error(`Unable to establish connection handle in reviewsDA: ${e}`);
+      console.error(`Unable to establish connection handle in reviewsDAO: ${e}`);
     }
   }
 

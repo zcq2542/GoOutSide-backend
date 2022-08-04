@@ -6,8 +6,8 @@ export default class ActivsController{
     const page = req.query.page ? parseInt(req.query.page) : 0;
 
     let filters = {}
-    if (req.query.rated){
-      filters.rated = req.query.rated;
+    if (req.query.tags){
+      filters.tags = req.query.tags;
     }else if (req.query.title){
       filters.title = req.query.title;
     }
@@ -58,6 +58,72 @@ export default class ActivsController{
     }catch(e){
       console.log(`API, ${e}`);
       res.status(500).json({error: e});
+    }
+  }
+
+  static async apiPostActiv(req, res, next){
+    try{
+      const name = req.body.name;
+      const images = req.body.images;
+      const tags = req.body.tags;
+      const address = req.body.address;
+      const description = req.body.description;
+      const user = {
+        _name: req.body.user_name,
+        _id: req.body.user_id
+      }
+      const activResponse = await ActivsDAO.addActiv(
+        name, images, tags, user, address, description);
+      var {error} = activResponse;
+      console.log(error);
+      if(error){
+        res.status(500).json({error: "Unable to post activity."});
+      }else{
+        res.json({status: "success"});
+      }
+    }catch(e){
+      res.status(500).json({error: e.message});
+    }
+  }
+
+  static async apiUpdateActiv(req, res, next){
+    try{
+      const activId = req.body.activ_id;
+      const userId = req.body.user_id;
+      const name = req.body.name;
+      const images = req.body.images;
+      const tags = req.body.tags;
+      const address = req.body.address;
+      const description = req.body.description;
+      const activResponse = await ActivsDAO.updateActiv(activId, userId, name, images, tags, address, description);
+      var {error} = activResponse;
+        console.log(error);
+      if(error){
+        res.status(500).json({error: "Unable to update activity."});
+      }else if(activResponse.modifiedCount === 0) { // There is no difference between new and old one.
+        throw new Error("There is no difference.");
+      } else {
+        res.json({status: "success"});
+      }
+    }catch(e){
+      res.status(500).json({error: e.message});
+    }
+  }
+
+  static async apiDeleteActiv(req, res, next){
+    try{
+      const activId = req.body.activ_id;
+      const userId = req.body.user_id;
+      const activResponse = await ActivsDAO.updateActiv(activId, userId);
+      var {error} = activResponse;
+      console.log(error);
+      if(error){
+        res.status(500).json({error: "Unable to delete activity."});
+      }else{
+        res.json({status: "success"});
+      }
+    }catch(e){
+      res.status(500).json({error: e.message});
     }
   }
 }
