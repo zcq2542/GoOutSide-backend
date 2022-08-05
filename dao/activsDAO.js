@@ -65,7 +65,7 @@ export default class ActivsDAO {
         },
         {
           $lookup: { // from reviews collection find the data that activ_id === _id(activs collection) as output reviews field.
-            from: 'reviews',
+            from: 'Reviews',
             localField: '_id',
             foreignField: 'activ_id',
             as: 'reviews', // output array field.

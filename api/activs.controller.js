@@ -64,8 +64,8 @@ export default class ActivsController{
   static async apiPostActiv(req, res, next){
     try{
       const name = req.body.name;
-      const images = req.body.images;
-      const tags = req.body.tags;
+      const images = req.body.imageUrl;
+      const tags = req.body.tag;
       const address = req.body.address;
       const description = req.body.description;
       const user = {

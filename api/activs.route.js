@@ -17,9 +17,9 @@ router.route("/review").delete(ReviewsController.apiDeleteReview);
 router.route("/favorites").put(FavoritesController.apiUpdateFavorites);
 router.route("/favorites/:userId").get(FavoritesController.apiGetFavorites);
 
-router.route("/add").post(ActivsController.apiPostActiv);
-router.route("/add").put(ActivsController.apiUpdateActiv);
-router.route("/add").delete(ActivsController.apiDeleteActiv);
+router.route("/").post(ActivsController.apiPostActiv);
+router.route("/").put(ActivsController.apiUpdateActiv);
+router.route("/").delete(ActivsController.apiDeleteActiv);
 
 
 
