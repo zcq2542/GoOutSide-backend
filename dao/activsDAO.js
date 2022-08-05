@@ -25,7 +25,7 @@ export default class ActivsDAO {
     if (filters) {
       if ("name" in filters) {
         query = { $text: { $search: filters['name'] } };
-      } else if ("tag" in filters) {
+      } else if ("tags" in filters) {
         query = { "tags": { $eq: filters['tags'] } };
       }
     }
