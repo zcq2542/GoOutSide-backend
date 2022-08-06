@@ -8,8 +8,8 @@ export default class ActivsController{
     let filters = {}
     if (req.query.tags){
       filters.tags = req.query.tags;
-    }else if (req.query.title){
-      filters.title = req.query.title;
+    }else if (req.query.name){
+      filters.name = req.query.name;
     }
 
     const { activsList, totalNumActivs} = await ActivsDAO.getActivs({filters, page, activsPerPage});
@@ -22,22 +22,22 @@ export default class ActivsController{
       total_results: totalNumActivs,
     };
       res.json(response);
-    }
+  }
 
-    static async apiGetActivById(req, res, next){
-      try{
-        let id = req.params.id || {}
-        let activ = await ActivsDAO.getActivById(id);
-        if(!activ){
-          res.status(404).json({error:"not found"});
-          return;
-        }
-          res.json(activ);
-      }catch(e){
-        console.log(`API,${e}`);
-        res.status(500).json({error:e});
+  static async apiGetActivById(req, res, next){
+    try{
+      let id = req.params.id || {}
+      let activ = await ActivsDAO.getActivById(id);
+      if(!activ){
+        res.status(404).json({error:"not found"});
+        return;
       }
+        res.json(activ);
+    }catch(e){
+      console.log(`API,${e}`);
+      res.status(500).json({error:e});
     }
+  }
 
   static async apiGetByIdList(req, res, next){
     try{
