@@ -9,6 +9,7 @@ router.route("/").get(ActivsController.apiGetActivs);
 router.route("/id/:id").get(ActivsController.apiGetActivById);
 router.route("/tags").get(ActivsController.apiGetTags);
 router.route("/idList/:favlist").get(ActivsController.apiGetByIdList);
+router.route("/userId/:userId").get(ActivsController.apiGetByUserId);
 
 router.route("/review").post(ReviewsController.apiPostReview);
 router.route("/review").put(ReviewsController.apiUpdateReview);
@@ -20,8 +21,5 @@ router.route("/favorites/:userId").get(FavoritesController.apiGetFavorites);
 router.route("/").post(ActivsController.apiPostActiv);
 router.route("/").put(ActivsController.apiUpdateActiv);
 router.route("/").delete(ActivsController.apiDeleteActiv);
-
-
-
 
 export default router;

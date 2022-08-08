@@ -126,4 +126,21 @@ export default class ActivsController{
       res.status(500).json({error: e.message});
     }
   }
+
+  static async apiGetByUserId(req, res, next){
+    console.log(req.params.userId);
+    try{
+      let userId = req.params.userId;
+      console.log(userId);
+      let myActivs = await ActivsDAO.GetByUserId(userId);
+      if(!myActivs){
+        res.status(404).json({error:"not found"});
+        return;
+      }
+      res.json(myActivs);
+    }catch(e) {
+      console.log(`API, ${e}`);
+      res.status(500).json({error:e });
+    }
+  }
 }

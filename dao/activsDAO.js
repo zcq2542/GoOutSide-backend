@@ -144,5 +144,26 @@ export default class ActivsDAO {
       return { error: e };
     }
   }
+
+  static async GetByUserId(userId) {
+    console.log(userId);
+
+    
+    let cursor;
+
+    try {
+      cursor = await activs.find({
+        user_id: userId
+        });   
+      const activsList = await cursor.toArray();
+      console.log(activsList);
+      return  activsList;
+    } catch (e) {
+      console.error(`Unable to issue find command, ${e}`);
+      throw e;
+    }
+  }
+
+
 }
 
