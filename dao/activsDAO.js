@@ -146,7 +146,7 @@ export default class ActivsDAO {
   }
 
   static async GetByUserId(userId) {
-    console.log(userId);
+    // console.log(userId);
 
     
     let cursor;
@@ -156,7 +156,7 @@ export default class ActivsDAO {
         user_id: userId
         });   
       const activsList = await cursor.toArray();
-      console.log(activsList);
+      // console.log(activsList);
       return  activsList;
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`);

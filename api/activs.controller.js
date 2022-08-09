@@ -41,7 +41,7 @@ export default class ActivsController{
 
   static async apiGetByIdList(req, res, next){
     try{
-      console.log(req.params);
+      // console.log(req.params);
       let favlist = JSON.parse(req.params.favlist) || {};
       let favorite = await ActivsDAO.getByIdList(favlist);
       res.json(favorite);
@@ -128,10 +128,10 @@ export default class ActivsController{
   }
 
   static async apiGetByUserId(req, res, next){
-    console.log(req.params.userId);
+    // console.log(req.params.userId);
     try{
       let userId = req.params.userId;
-      console.log(userId);
+      // console.log(userId);
       let myActivs = await ActivsDAO.GetByUserId(userId);
       if(!myActivs){
         res.status(404).json({error:"not found"});
