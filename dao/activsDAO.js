@@ -80,7 +80,7 @@ export default class ActivsDAO {
 
   static async getByIdList(list) {
     let objectIds = list.map((id) => { return new ObjectId(id) });
-    console.log(objectIds);
+    
     try {
       return await activs.find(
         {

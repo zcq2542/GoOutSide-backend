@@ -88,7 +88,7 @@ export default class ActivsController{
 
   static async apiUpdateActiv(req, res, next){
     try{
-      const activId = req.body.activ_id;
+      const activId = req.body.activs_id;
       const userId = req.body.user_id;
       const name = req.body.name;
       const images = req.body.images;
@@ -111,10 +111,13 @@ export default class ActivsController{
   }
 
   static async apiDeleteActiv(req, res, next){
+    // console.log(req.body.activs_id);
+    // console.log(req.body.user_id);
     try{
-      const activId = req.body.activ_id;
+      const activId = req.body.activs_id;
       const userId = req.body.user_id;
       const activResponse = await ActivsDAO.deleteActiv(activId, userId);
+      // console.log(activResponse);
       var {error} = activResponse;
       console.log(error);
       if(error){
