@@ -88,11 +88,11 @@ export default class ActivsController{
 
   static async apiUpdateActiv(req, res, next){
     try{
-      const activId = req.body.activs_id;
+      const activId = req.body.activ_id;
       const userId = req.body.user_id;
       const name = req.body.name;
-      const images = req.body.images;
-      const tags = req.body.tags;
+      const images = req.body.imageUrl;
+      const tags = req.body.tag;
       const address = req.body.address;
       const description = req.body.description;
       const activResponse = await ActivsDAO.updateActiv(activId, userId, name, images, tags, address, description);
