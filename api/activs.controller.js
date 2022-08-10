@@ -114,7 +114,7 @@ export default class ActivsController{
     // console.log(req.body.activs_id);
     // console.log(req.body.user_id);
     try{
-      const activId = req.body.activs_id;
+      const activId = req.body.activ_id;
       const userId = req.body.user_id;
       const activResponse = await ActivsDAO.deleteActiv(activId, userId);
       // console.log(activResponse);
