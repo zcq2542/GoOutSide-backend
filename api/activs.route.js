@@ -21,5 +21,6 @@ router.route("/favorites/:userId").get(FavoritesController.apiGetFavorites);
 router.route("/").post(ActivsController.apiPostActiv);
 router.route("/").put(ActivsController.apiUpdateActiv);
 router.route("/").delete(ActivsController.apiDeleteActiv);
+router.route("/").put(ActivsController.apiUpdateStar);
 
 export default router;
