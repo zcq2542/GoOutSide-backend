@@ -49,7 +49,7 @@ export default class ReviewsController{
     try{
       const reviewId = req.body.review_id;
       const userId = req.body.user_id;
-      const reviewResponse = await ReviewsDAO.updateReview(reviewId, userId);
+      const reviewResponse = await ReviewsDAO.deleteReview(reviewId, userId);
       var {error} = reviewResponse;
       console.log(error);
       if(error){
