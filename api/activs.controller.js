@@ -148,4 +148,28 @@ export default class ActivsController{
       res.status(500).json({error:e });
     }
   }
+
+  static async apiUpdateStar(req, res, next){
+    try{
+      const activId = req.body.activ_id;
+      const addStar = req.body.star;
+      let getActiv = await ActivsDAO.getActivById(activId);
+      let oldRating = getActiv.rating[0];
+      let oldSum = getActiv.rating[1];
+      let newRating = (oldRating*oldSum+addStar)/(oldSum+1).toFixed(1);
+      let newSum = oldSum+1;
+      let data ={newRating, newSum}
+      const ratingResponse = await ActivsDAO.updateStar(activId, data);
+      var {error} = ratingResponse;
+        console.log(error);
+      if(error){
+        res.status(500).json({error: "Unable to update activity."});
+      } else {
+        res.json({status: "success"});
+      }
+    }catch(e){
+      res.status(500).json({error: e.message});
+    }
+
+  }
 }

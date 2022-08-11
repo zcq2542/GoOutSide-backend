@@ -147,12 +147,8 @@ export default class ActivsDAO {
     }
   }
 
-  static async GetByUserId(userId) {
-    // console.log(userId);
-
-    
+  static async GetByUserId(userId) {  
     let cursor;
-
     try {
       cursor = await activs.find({
         user_id: userId
@@ -164,6 +160,22 @@ export default class ActivsDAO {
       console.error(`Unable to issue find command, ${e}`);
       throw e;
     }
+  }
+
+  static async updateStar(activId, data){
+    try {
+      const starUpdate = await activs.updateOne(
+        { _id: ObjectId(activId) },
+        { $set: { 
+          rating: data
+        } });
+      return starUpdate;
+    }
+    catch (e) {
+      console.error(`Unable to update rating: ${e}`)
+      return { error: e };
+    }
+
   }
 }
 
