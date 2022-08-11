@@ -95,7 +95,7 @@ export default class ActivsDAO {
     }
   }
 
-  static async addActiv(name, images, tags, user, address, description) {
+  static async addActiv(name, images, tags, user, address, description, coord) {
     try {
       const activDoc = {
         name: name,
@@ -104,7 +104,8 @@ export default class ActivsDAO {
         user_id: user._id,
         user_name: user._name,
         address: address,
-        description: description
+        description: description,
+        coord: coord
       }
       return await activs.insertOne(activDoc);
     }
@@ -114,7 +115,7 @@ export default class ActivsDAO {
     }
   }
 
-  static async updateActiv(activId, userId, name, images, tags, address, description) {
+  static async updateActiv(activId, userId, name, images, tags, address, description, coord) {
     try {
       const activUpdate = await activs.updateOne(
         { _id: ObjectId(activId), user_id: userId },
@@ -123,7 +124,8 @@ export default class ActivsDAO {
           images: images,
           tags: tags,
           address: address,
-          description: description 
+          description: description,
+          coord: coord
         } });
       return activUpdate;
     }
@@ -163,7 +165,5 @@ export default class ActivsDAO {
       throw e;
     }
   }
-
-
 }
 

@@ -68,12 +68,13 @@ export default class ActivsController{
       const tags = req.body.tag;
       const address = req.body.address;
       const description = req.body.description;
+      const coord = req.body.coordinate;
       const user = {
         _name: req.body.user_name,
         _id: req.body.user_id
       }
       const activResponse = await ActivsDAO.addActiv(
-        name, images, tags, user, address, description);
+        name, images, tags, user, address, description, coord);
       var {error} = activResponse;
       console.log(error);
       if(error){
@@ -95,7 +96,8 @@ export default class ActivsController{
       const tags = req.body.tag;
       const address = req.body.address;
       const description = req.body.description;
-      const activResponse = await ActivsDAO.updateActiv(activId, userId, name, images, tags, address, description);
+      const coord = req.body.coordinate;
+      const activResponse = await ActivsDAO.updateActiv(activId, userId, name, images, tags, address, description, coord);
       var {error} = activResponse;
         console.log(error);
       if(error){
