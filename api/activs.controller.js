@@ -73,8 +73,10 @@ export default class ActivsController{
         _name: req.body.user_name,
         _id: req.body.user_id
       }
+      const rating =[0,0];
+      const hide = false;
       const activResponse = await ActivsDAO.addActiv(
-        name, images, tags, user, address, description, coord);
+        name, images, tags, user, address, description, coord, rating, hide);
       var {error} = activResponse;
       console.log(error);
       if(error){
@@ -113,8 +115,9 @@ export default class ActivsController{
   }
 
   static async apiDeleteActiv(req, res, next){
+    //console.req;
     // console.log(req.body.activs_id);
-    // console.log(req.body.user_id);
+     console.log(req.body.user_id);
     try{
       const activId = req.body.activ_id;
       const userId = req.body.user_id;

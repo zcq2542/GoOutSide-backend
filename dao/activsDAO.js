@@ -95,7 +95,7 @@ export default class ActivsDAO {
     }
   }
 
-  static async addActiv(name, images, tags, user, address, description, coord) {
+  static async addActiv(name, images, tags, user, address, description, coord, rating, hide) {
     try {
       const activDoc = {
         name: name,
@@ -105,7 +105,10 @@ export default class ActivsDAO {
         user_name: user._name,
         address: address,
         description: description,
-        coord: coord
+        coord: coord,
+        rating:rating,
+        hide:hide
+        
       }
       return await activs.insertOne(activDoc);
     }
@@ -137,8 +140,9 @@ export default class ActivsDAO {
 
   static async deleteActiv(activId, userId) {
     try {
-      const activDelete = await activs.deleteOne(
-        { _id: ObjectId(activId), user_id: userId });
+      const activDelete = await activs.updateOne(
+        { _id: ObjectId(activId), user_id: userId },
+        { $set: { hide: true}});
       return activDelete;
     }
     catch (e) {
