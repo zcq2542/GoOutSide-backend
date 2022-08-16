@@ -115,9 +115,7 @@ export default class ActivsController{
   }
 
   static async apiDeleteActiv(req, res, next){
-    //console.req;
-    // console.log(req.body.activs_id);
-     console.log(req.body.user_id);
+    //  console.log(req.body.user_id);
     try{
       const activId = req.body.activ_id;
       const userId = req.body.user_id;
@@ -125,9 +123,11 @@ export default class ActivsController{
       // console.log(activResponse);
       var {error} = activResponse;
       console.log(error);
-      if(error){
+      if (error) {
         res.status(500).json({error: "Unable to delete activity."});
-      }else{
+      } else if (activResponse.modifiedCount === 0) { // There is no difference between new and old one.
+        throw new Error("There is no difference.");
+      } else {
         res.json({status: "success"});
       }
     }catch(e){

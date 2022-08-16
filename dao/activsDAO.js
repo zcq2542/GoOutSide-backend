@@ -158,7 +158,6 @@ export default class ActivsDAO {
         user_id: userId
         });   
       const activsList = await cursor.toArray();
-      // console.log(activsList);
       return  activsList;
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`);
@@ -179,7 +178,6 @@ export default class ActivsDAO {
       console.error(`Unable to update rating: ${e}`)
       return { error: e };
     }
-
   }
 }
 
